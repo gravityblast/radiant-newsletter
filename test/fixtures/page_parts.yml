@@ -1,0 +1,103 @@
+home_body:
+  id: 1
+  name: body
+  content: This is the home page
+  page_id: 1
+newsletter_body:
+  id: 2
+  name: body
+  content: |
+    <r:newsletter:unless_actions>
+      This is the newsletter page
+    </r:newsletter:unless_actions>
+    <r:newsletter:if_actions>
+      <r:newsletter:if_action name="subscribe">
+        <r:content part="subscribe" />
+      </r:newsletter:if_action>
+      <r:newsletter:if_action name="subscribed">
+        <r:content part="subscribed" />
+      </r:newsletter:if_action>
+      <r:newsletter:if_action name="activate">
+        <r:content part="activate" />
+      </r:newsletter:if_action>
+      <r:newsletter:if_action name="activated">
+        <r:content part="activated" />
+      </r:newsletter:if_action>
+      <r:newsletter:if_action name="unsubscribe">
+        <r:content part="unsubscribe" />
+      </r:newsletter:if_action>
+      <r:newsletter:if_action name="unsubscribed">
+        <r:content part="unsubscribed" />
+      </r:newsletter:if_action>
+      <r:newsletter:if_action name="confirm_unsubscription">
+        <r:content part="confirm_unsubscription" />
+      </r:newsletter:if_action>
+    </r:newsletter:if_actions>
+  page_id: 2
+newsletter_subscribe:
+  id: 3
+  name: subscribe
+  content: |
+    <r:newsletter:if_form_errors>
+      All fields are required
+    </r:newsletter:if_form_errors>
+    <form action="/newsletter/subscribe/" method="post"><input type="text" name="newsletter_subscriber[email]" /><input type="submit" value="Join"/></form>
+  page_id: 2
+newsletter_subscribed:
+  id: 4
+  name: subscribed
+  content: You will receive an email with your activation code 
+  page_id: 2
+newsletter_activate:    
+  id: 5
+  name: activate
+  content: Activation code not found
+  page_id: 2
+newsletter_activated:
+  id: 6
+  name: activated
+  content: You have been activated
+  page_id: 2
+newsletter_unsubscribe:
+  id: 7
+  name: unsubscribe
+  content: |
+    <r:newsletter:if_form_errors>
+      Sorry, there is no active subscriber with that email address
+    </r:newsletter:if_form_errors>
+    <form action="/newsletter/unsubscribe/" method="post"><input type="text" name="newsletter_subscriber[email]" /><input type="submit" value="Join"/></form>
+  page_id: 2
+newsletter_unsubscribed:
+  id: 8
+  name: unsubscribed
+  content: You will receive an email with your unsubscription code 
+  page_id: 2
+newsletter_confirm_unsubscription:
+  id: 9
+  name: confirm_unsubscription
+  content: You have been unsubscribed
+  page_id: 2
+newsletter_activation_email:
+  id: 10
+  name: activation_email
+  content: |
+    Hello <r:newsletter:subscriber:name />, click the following url to activate your subscription: <a href="http://localhost:3000/newsletter/activate/<r:newsletter:subscriber:activation_code />">http://localhost:3000/newsletter/activate/<r:newsletter:subscriber:activation_code /></a>
+  page_id: 2
+newsletter_unsubscription_email:
+  id: 11
+  name: unsubscription_email
+  content: |
+    Hello <r:newsletter:subscriber:name />, click the following url to unsubscribe: <a href="http://localhost:3000/newsletter/confirm_unsubscribe/<r:newsletter:subscriber:unsubscription_code />">http://localhost:3000/newsletter/confirm_unsubscribe/<r:newsletter:subscriber:unsubscription_code /></a>
+  page_id: 2
+newsletter_config:
+  id: 12
+  name: config
+  content: |
+    from: hello@example.com
+    subject_prefix: My newsletter
+  page_id: 2
+first_email_for_newsletter_body:
+  id: 13
+  name: body
+  content: Hello from the first newsletter
+  page_id: 4

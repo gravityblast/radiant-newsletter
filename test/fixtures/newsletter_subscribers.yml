@@ -1,0 +1,46 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+tom: # active subscriber
+  id: 1
+  name: Tom
+  email: tom@example.com
+  activation_code: 
+  newsletter_id: 2
+  unsubscription_code: 97014f08d99ff169474fc7ce3a3ee007021e6f36
+  activated_at: <%= 5.days.ago.to_s :db %>
+mike:
+  id: 2
+  name: Mike
+  email: mike@example.com
+  activation_code: 
+  newsletter_id: 2
+  unsubscription_code: 16f48c44247199ad817e2df88af52f4e4d094ceb
+  activated_at: <%= 5.days.ago.to_s :db %>
+    
+rob: # active subscriber
+  id: 3
+  name: Rob
+  email: rob@example.com
+  activation_code: 
+  newsletter_id: 3
+  activated_at: <%= 5.days.ago.to_s :db %>  
+paul: # not active subscriber
+  id: 4
+  name: Paul
+  email: paul@example.com
+  activation_code: cdb68cfe45cbb07c4dcade9cd7e09aa11510eb12
+  newsletter_id: 2
+  activated_at:
+james: # unsubscribed 
+  id: 5
+  name: James
+  email: james@example.com
+  activation_code: cdb68cfe45cbb07c4dcade9cd7e09aa11510eb12
+  newsletter_id: 2
+  activated_at: <%= 5.days.ago.to_s :db %>
+  unsubscribed_at: <%= 2.days.ago.to_s :db %>
+andy:
+  id: 6
+  name: Andy
+  email: andy@example.com
+  activation_code: beb12aa39d7f33934ca3a1f97c8e405369152f44
+  newsletter_id: 3

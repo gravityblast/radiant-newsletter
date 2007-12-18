@@ -1,0 +1,34 @@
+homepage:
+  id: 1
+  title: Home Page
+  breadcrumb: Home
+  slug: /
+  status_id: 100
+  parent_id:
+  published_at: <%= 1.day.ago.to_s :db %>
+newsletter:
+  id: 2
+  title: Newsletter
+  breadcrumb: newsletter
+  slug: newsletter
+  status_id: 100
+  parent_id: 1
+  class_name: NewsletterPage
+  published_at: <%= 1.day.ago.to_s :db %>
+an_other_newsletter:
+  id: 3
+  title: An other newsletter
+  breadcrumb: an_other_newsletter
+  slug: an_other_newsletter
+  status_id: 100
+  parent_id: 1
+  class_name: NewsletterPage
+  published_at: <%= 1.day.ago.to_s :db %>
+first_email_for_newsletter:
+  id: 4
+  title: First email for Newsletter
+  breadcrumb: first-email-for-newsletter
+  slug: first-email-for-newsletter
+  status_id: 100
+  parent_id: 2
+  published_at: <%= 1.day.ago.to_s :db %>
