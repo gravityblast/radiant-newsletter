@@ -26,6 +26,10 @@ namespace :radiant do
         end
       end  
       
+      desc "Launches update and migrate tasks"
+      task :install => [:migrate, :update] do
+      end
+      
       desc "Creates a NewsletterPage with the default page parts"
       task :new => :environment do
         pages_fixture = File.join(NewsletterExtension.root, 'test', 'fixtures', 'pages.yml')
