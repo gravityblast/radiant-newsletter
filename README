@@ -9,3 +9,20 @@ This extensions adds a newsletter system to RadiantCMS
 More info can be found at the following url:
 
   http://gravityblast.com/projects/radiant-newsletter-extension/
+  
+
+== Installation
+                                                             
+  svn co http://dev.gravityblast.com/svn/projects/radiant/extensions/newsletter/
+  rake RAILS_ENV="production" radiant:extensions:newsletter:install
+
+== Usage
+
+Create a Newsletter page using the following task:
+
+  rake RAILS_ENV="production" radiant:extensions:newsletter:new
+
+Add a child to this page. This new page will be your newsletter. After the first save, you will see
+the "Send as newsletter" button. Click and send your newsletter.
+
+
