@@ -21,8 +21,9 @@ More info can be found at the following url:
 Create a Newsletter page using the following task:
 
   rake RAILS_ENV="production" radiant:extensions:newsletter:new
-
-Add a child to this page. This new page will be your newsletter. After the first save, you will see
+  
+This task will add a new page called Newsletter.Add a child to this page.
+This new page will be the email to send. After the first save, you will see
 the "Send as newsletter" button. Click and send your newsletter.
 
 
