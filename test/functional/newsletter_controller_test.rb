@@ -56,7 +56,7 @@ class NewsletterControllerTest < Test::Unit::TestCase
       assert_equal pages(:first_email_for_newsletter), NewsletterEmail.find(:first).page
       
       post :create, :page_id => pages(:second_email_for_newsletter).id
-      assert_redirected_to :controller => '/admin/page', :action => 'edit', :id => pages(:first_email_for_newsletter).id
+      assert_redirected_to :controller => '/admin/page', :action => 'edit', :id => pages(:second_email_for_newsletter).id
       assert_equal subscribers_count, NewsletterEmail.count(:conditions => ["page_id = ?", pages(:second_email_for_newsletter).id])
       assert_equal pages(:second_email_for_newsletter), NewsletterEmail.find(:all).last.page
     end    
