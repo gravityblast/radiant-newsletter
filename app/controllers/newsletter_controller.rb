@@ -32,11 +32,15 @@ private
   def send_mail(newsletter, page)
     subject = "[#{newsletter.config["subject_prefix"]}] #{page.title}"
     html_body = page.render    
-    from = newsletter.config["from"]
-    newsletter.recipients.each do |address|
-      recipients = address
-      email = NewsletterMailer.create_newsletter(subject, html_body, recipients, from)
-      NewsletterMailer.deliver(email)
+    from = newsletter.config["from"]    
+    newsletter.recipients.each do |address|      
+      mail = NewsletterMailer.create_newsletter(subject, html_body, address, from)
+      NewsletterEmail.create({
+        :page_id        => page.id,
+        :mail           => mail.encoded, 
+        :to             => address,
+        :from           => from
+      })
     end        
   end     
   

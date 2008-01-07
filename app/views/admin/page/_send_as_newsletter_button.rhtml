@@ -3,6 +3,7 @@
   <h2>Newsletter:</h2>
   <div class="form-area">
     <ul>
+      <li><strong>Queue</strong>: <%= NewsletterEmail.count(:conditions => ["page_id = ?", @page.id]) %></li>
       <li><strong>Active subscribers</strong>: <%= newsletter.active_subscribers.count %></li>
     </ul>
     <% form_tag({:controller => '/newsletter', :action => 'new', :page_id => @page.id}) do %>

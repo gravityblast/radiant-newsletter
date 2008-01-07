@@ -48,15 +48,18 @@ class NewsletterControllerTest < Test::Unit::TestCase
   end
   
   def test_create_should_send_emails_if_page_is_child_of_a_newsletter_page
-    post :create, :page_id => pages(:first_email_for_newsletter).id
-    assert_response :redirect, :controller => '/admin/page', :action => 'edit', :id => pages(:first_email_for_newsletter).id
-    assert_equal 2, ActionMailer::Base.deliveries.size
-    mail    = ActionMailer::Base.deliveries[0]
-    mail_2  = ActionMailer::Base.deliveries[1]
-    assert_equal "[#{pages(:first_email_for_newsletter).parent.config["subject_prefix"]}] #{pages(:first_email_for_newsletter).title}", mail.header["subject"].body
-    assert_equal "Tom <tom@example.com>", mail.header["to"].body
-    assert_equal "Mike <mike@example.com>", mail_2.header["to"].body
-    assert_equal "Hello from the first newsletter", mail.body
+    subscribers_count = pages(:newsletter).active_subscribers.count
+    assert_difference NewsletterEmail, :count, subscribers_count * 2 do
+      post :create, :page_id => pages(:first_email_for_newsletter).id
+      assert_redirected_to :controller => '/admin/page', :action => 'edit', :id => pages(:first_email_for_newsletter).id      
+      assert_equal subscribers_count, NewsletterEmail.count(:conditions => ["page_id = ?", pages(:first_email_for_newsletter).id])
+      assert_equal pages(:first_email_for_newsletter), NewsletterEmail.find(:first).page
+      
+      post :create, :page_id => pages(:second_email_for_newsletter).id
+      assert_redirected_to :controller => '/admin/page', :action => 'edit', :id => pages(:first_email_for_newsletter).id
+      assert_equal subscribers_count, NewsletterEmail.count(:conditions => ["page_id = ?", pages(:second_email_for_newsletter).id])
+      assert_equal pages(:second_email_for_newsletter), NewsletterEmail.find(:all).last.page
+    end    
   end
   
 end

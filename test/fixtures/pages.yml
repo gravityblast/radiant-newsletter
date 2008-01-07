@@ -32,3 +32,12 @@ first_email_for_newsletter:
   status_id: 100
   parent_id: 2
   published_at: <%= 1.day.ago.to_s :db %>
+second_email_for_newsletter:
+  id: 5
+  title: Second email for Newsletter
+  breadcrumb: second-email-for-newsletter
+  slug: second-email-for-newsletter
+  status_id: 100
+  parent_id: 2
+  published_at: <%= 1.day.ago.to_s :db %>
+  
