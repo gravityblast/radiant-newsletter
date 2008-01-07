@@ -1,9 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 # Re-raise errors caught by the controller.
-NewsletterController.class_eval { def rescue_action(e) raise e end }
+NewslettersController.class_eval { def rescue_action(e) raise e end }
 
-class NewsletterControllerTest < Test::Unit::TestCase
+class NewslettersControllerTest < Test::Unit::TestCase
   
   fixtures :pages, :page_parts, :users, :newsletter_subscribers
   test_helper :login
@@ -12,7 +12,7 @@ class NewsletterControllerTest < Test::Unit::TestCase
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
-    @controller = NewsletterController.new
+    @controller = NewslettersController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new    
     login_as :existing

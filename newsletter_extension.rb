@@ -7,7 +7,7 @@ class NewsletterExtension < Radiant::Extension
   url "http://gravityblast.com/projects/radiant-newsletter-extension/"
   
   define_routes do |map|
-    map.connect 'admin/newsletter/:page_id/:action',  :controller => 'newsletter'
+    map.connect 'admin/newsletters/:page_id/:action',  :controller => 'newsletters'
   end
   
   def activate

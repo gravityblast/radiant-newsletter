@@ -1,4 +1,4 @@
-class NewsletterController < ApplicationController
+class NewslettersController < ApplicationController
 
   before_filter :find_page_and_newsletter
   
