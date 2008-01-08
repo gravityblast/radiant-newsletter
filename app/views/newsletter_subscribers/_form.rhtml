@@ -1,0 +1,11 @@
+<%= subscriber.hidden_field :newsletter_id, :value => @newsletter.id %>
+<div class="form-area">
+  <p class="title">
+    <label for="subscriber_name">Name</label>
+    <%= subscriber.text_field :name, :class => 'textbox'  %>
+  </p>
+  <p class="title">
+    <label for="subscriber_email">Email</label>
+    <%= subscriber.text_field :email, :class => 'textbox'  %>
+  </p>  
+</div>

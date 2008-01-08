@@ -33,4 +33,21 @@ class NewsletterPageTest < Test::Unit::TestCase
     assert_equal "This is the subject prefix", pages(:newsletter).config["subject_prefix"]
   end
   
+  def test_should_destroy_all_its_subscribers
+    assert_difference NewsletterSubscriber, :count, -(pages(:newsletter).subscribers.count) do
+      pages(:newsletter).destroy
+    end
+  end
+  
+  def test_should_destroy_all_emails_not_sent_yet
+    10.times{|e| NewsletterEmail.create(:page_id => pages(:first_email_for_newsletter).id)}
+    10.times{|e| NewsletterEmail.create(:page_id => pages(:second_email_for_newsletter).id)}
+    assert_equal 10, pages(:first_email_for_newsletter).emails.count
+    assert_equal 10, pages(:second_email_for_newsletter).emails.count
+    assert_equal 20, NewsletterEmail.count
+    assert_difference NewsletterEmail, :count, -20 do
+      pages(:newsletter).destroy
+    end
+  end
+  
 end

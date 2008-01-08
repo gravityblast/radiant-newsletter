@@ -1,0 +1,9 @@
+<h1>New subscribers</h1>
+
+<% form_for(:subscriber, :url => {:action => 'create'} ) do |subscriber| -%>
+  <%= render :partial => 'form', :locals => {:subscriber => subscriber} %>
+  <p class="buttons">
+    <%= submit_tag 'Create subscriber', :class => 'button' %>
+    or <%= link_to 'Cancel', :action => 'index' %>
+  </p>                                                    
+<% end -%>

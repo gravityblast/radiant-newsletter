@@ -1,10 +1,11 @@
 class NewsletterSubscriber < ActiveRecord::Base
   
-  attr_protected :activation_code, :unsubscription_code
+  attr_protected :activation_code, :unsubscription_code, :activated_at
   
   belongs_to :newsletter, :class_name => 'NewsletterPage', :foreign_key => 'newsletter_id'
   
   validates_presence_of :email
+  validates_presence_of :newsletter_id
 
   #TODO: add validation to newsletter.Does the newsletter page exists?
   
@@ -43,7 +44,7 @@ class NewsletterSubscriber < ActiveRecord::Base
   
   def activate
     self.activated_at = Time.now 
-    self.activation_code = nil # I can't use update_attributes cause activation_code is protected
+    self.activation_code = nil # I can't use update_attributes because activation_code and activated_at are protected
     save
   end
   

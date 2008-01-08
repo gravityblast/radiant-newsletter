@@ -1,7 +1,7 @@
 = Newsletter
   
   Created by: Andrea Franz - http://gravityblast.com
-  Version: 0.1.1
+  Version: 0.1.2
   Contact: andrea AT gravityblast DOT com
 
 This extensions adds a newsletter system to RadiantCMS
@@ -23,7 +23,7 @@ Add ActionMailer configurations in your environment.rb and restart the server.
 
 Create a Newsletter page using the following task:
 
-  rake RAILS_ENV="production" radiant:extensions:newsletter:new
+  rake RAILS_ENV="production" radiant:extensions:newsletter:page:new
   
 This task will add a new page called Newsletter.Add a child to this page.
 This new page will be the email to send. After the first save, you will see

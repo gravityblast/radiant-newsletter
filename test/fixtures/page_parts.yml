@@ -87,7 +87,7 @@ newsletter_unsubscription_email:
   id: 11
   name: unsubscription_email
   content: |
-    Hello <r:newsletter:subscriber:name />, click the following url to unsubscribe: <a href="http://localhost:3000/newsletter/confirm_unsubscribe/<r:newsletter:subscriber:unsubscription_code />">http://localhost:3000/newsletter/confirm_unsubscribe/<r:newsletter:subscriber:unsubscription_code /></a>
+    Hello <r:newsletter:subscriber:name />, click the following url to unsubscribe: <a href="http://localhost:3000/newsletter/confirm_unsubscription/<r:newsletter:subscriber:unsubscription_code />">http://localhost:3000/newsletter/confirm_unsubscribe/<r:newsletter:subscriber:unsubscription_code /></a>
   page_id: 2
 newsletter_config:
   id: 12

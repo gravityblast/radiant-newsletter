@@ -1,0 +1,30 @@
+<h1><%= @newsletter.title %></h1>
+<table width="100%">
+  <tr>
+    <th><%= newsletter_subscriber_list_link_to 'Name', :name %></th>
+    <th><%= newsletter_subscriber_list_link_to 'Email', :email %></th>
+    <th><%= newsletter_subscriber_list_link_to 'Subscription date', :created_at %></th>
+    <th><%= newsletter_subscriber_list_link_to 'Activation date', :activated_at %></th>
+    <th><%= newsletter_subscriber_list_link_to 'Unsubscription date', :unsubscribed_at %></th>
+    <th>Actions</th>
+  </tr>
+  <% @subscribers.each do |subscriber| -%>
+    <tr>
+      <td><%= subscriber.name %></td>
+      <td><%= subscriber.email %></td>
+      <td><%= subscriber.created_at.strftime("%b %d %Y") %></td>
+      <td><%= subscriber.activated_at ? subscriber.activated_at.strftime("%b %d %Y") : '' %></td>
+      <td><%= subscriber.unsubscribed_at ? subscriber.unsubscribed_at.strftime("%b %d %Y") : '' %></td>
+      <td>
+        <%= link_to 'Edit', :action => 'edit', :id => subscriber %>
+        <%= link_to 'Destroy', {:action => 'destroy', :id => subscriber}, :confirm => 'Are you sure?' %>
+      </td>
+    </tr>
+  <% end -%>
+</table>
+
+<div style="text-align: center; margin-top: 10px">
+  <%= pagination_links @subscribers_pages, :params => @list_options %>
+</div>
+
+<%= link_to 'New subscriber', :action => 'new' %>

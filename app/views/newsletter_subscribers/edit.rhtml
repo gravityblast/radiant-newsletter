@@ -1,0 +1,9 @@
+<h1>Edit subscribers</h1>
+
+<% form_for(:subscriber, :url => {:action => 'update', :id => @subscriber.id} ) do |subscriber| -%>
+  <%= render :partial => 'form', :locals => {:subscriber => subscriber} %>
+  <p class="buttons">
+    <%= submit_tag 'Update subscriber', :class => 'button' %>
+    or <%= link_to 'Cancel', :action => 'index' %>
+  </p>                                                    
+<% end -%>
