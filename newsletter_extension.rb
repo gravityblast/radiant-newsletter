@@ -14,7 +14,7 @@ class NewsletterExtension < Radiant::Extension
   def activate
     NewsletterPage
     Page.class_eval{ has_many :emails, :class_name => 'NewsletterEmail', :dependent => :delete_all }
-    admin.page.edit.add :main, "send_as_newsletter_button"
+    admin.page.edit.add :main, "page_edit_main_newsletter"
   end
   
   def deactivate
