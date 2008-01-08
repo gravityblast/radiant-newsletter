@@ -2,12 +2,15 @@
 <% if !@page.new_record? -%>
   <% if @page.class_name == 'NewsletterPage' -%>
     <h2>Newsletter:</h2>
-    <li><%= link_to 'Manage subscribers', :controller => '/newsletter_subscribers', :newsletter_id => @page.id %></li>
+    <ul>
+      <li><%= link_to 'Manage subscribers', :controller => '/newsletter_subscribers', :newsletter_id => @page.id %></li>
+      <li><strong>Subscribers</strong>: <%= @page.subscribers.count %></li>
+      <li><strong>Active subscribers</strong>: <%= @page.active_subscribers.count %></li>
+    </ul>
   <% elsif (newsletter = @page.parent) && newsletter.class_name == 'NewsletterPage' %>
     <h2>Newsletter:</h2>
     <ul>        
-      <li><strong>Queue</strong>: <%= NewsletterEmail.count(:conditions => ["page_id = ?", @page.id]) %></li>
-      <li><strong>Active subscribers</strong>: <%= newsletter.active_subscribers.count %></li>
+      <li><strong>Mail queue</strong>: <%= NewsletterEmail.count(:conditions => ["page_id = ?", @page.id]) %></li>      
     </ul>
     <% form_tag({:controller => '/newsletters', :action => 'new', :page_id => @page.id}) do %>
       <%= submit_tag 'Send as newsletter...' %> Remember to save the page before sending!
