@@ -1,0 +1,16 @@
+<h1>Import subscribers</h1>
+<p>
+  <%= @imported_count %> <%= pluralize(@imported_count, 'recipient') %> <%= @imported_count == 1 ? 'has' : 'have' %> been imported.
+</p>
+<% unless @bad_recipients.empty? -%>
+  <h2>Bad recipients</h2>
+  <ul>
+  <% @bad_recipients.each do |recipient| -%>
+    <li><%=h recipient[:email] %>: <%= recipient[:error] %></li>
+  <% end -%>
+  </ul>
+<% end -%>
+
+<p>
+  <%= link_to 'Import again' %>
+</p>

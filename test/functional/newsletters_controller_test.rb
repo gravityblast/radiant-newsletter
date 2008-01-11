@@ -54,12 +54,35 @@ class NewslettersControllerTest < Test::Unit::TestCase
       assert_redirected_to :controller => '/admin/page', :action => 'edit', :id => pages(:first_email_for_newsletter).id      
       assert_equal subscribers_count, NewsletterEmail.count(:conditions => ["page_id = ?", pages(:first_email_for_newsletter).id])
       assert_equal pages(:first_email_for_newsletter), NewsletterEmail.find(:first).page
+      assert_not_nil pages(:first_email_for_newsletter).reload.sent_as_newsletter_email_at
       
       post :create, :page_id => pages(:second_email_for_newsletter).id
       assert_redirected_to :controller => '/admin/page', :action => 'edit', :id => pages(:second_email_for_newsletter).id
       assert_equal subscribers_count, NewsletterEmail.count(:conditions => ["page_id = ?", pages(:second_email_for_newsletter).id])
       assert_equal pages(:second_email_for_newsletter), NewsletterEmail.find(:all).last.page
+      assert_not_nil pages(:second_email_for_newsletter).reload.sent_as_newsletter_email_at
+      assert_equal 0, ActionMailer::Base.deliveries.size
     end    
+  end
+  
+  def test_should_send_test_email
+    assert_difference NewsletterEmail, :count, 0 do
+      post :create, :test_email => 1, :address => 'test@example.com', :page_id => pages(:first_email_for_newsletter).id
+      assert_redirected_to :controller => '/admin/page', :action => 'edit', :id => pages(:first_email_for_newsletter).id
+      assert_equal 1, ActionMailer::Base.deliveries.size
+      email = ActionMailer::Base.deliveries[0]
+      assert_equal 1, email.header["to"].addrs.size
+      assert_equal "test@example.com", email.header["to"].addrs[0].spec
+    end
+  end
+  
+  def test_should_not_send_test_email_unless_address
+    assert_difference NewsletterEmail, :count, 0 do
+      post :create, :test_email => 1, :page_id => pages(:first_email_for_newsletter).id
+      assert_response :success
+      assert_not_nil flash[:error]
+      assert_equal 0, ActionMailer::Base.deliveries.size
+    end
   end
   
 end

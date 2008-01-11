@@ -1,0 +1,3 @@
+email_1@example.com, Name_2 <email_2@example.com>, Name_3 Surname_3 <email_3@example.com>
+email_4@example.com, Name_5<email_5@example.com>, Name_6 Surname_6 <email_6@example.com> 
+email_7_BAD_FORMAT@example, <email_8@example.com>

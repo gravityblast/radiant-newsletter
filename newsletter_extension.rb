@@ -2,7 +2,7 @@
 # require_dependency 'application'
 
 class NewsletterExtension < Radiant::Extension
-  version "0.1.2"
+  version "0.1.3"
   description "Adds a newsletter system to RadiantCMS"
   url "http://gravityblast.com/projects/radiant-newsletter-extension/"
   
@@ -14,7 +14,7 @@ class NewsletterExtension < Radiant::Extension
   def activate
     NewsletterPage
     Page.class_eval{ has_many :emails, :class_name => 'NewsletterEmail', :dependent => :delete_all }
-    admin.page.edit.add :main, "page_edit_main_newsletter"
+    admin.page.edit.add :main, "page_edit_main_newsletter", :after => 'edit_header'
   end
   
   def deactivate

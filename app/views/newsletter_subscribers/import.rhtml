@@ -1,0 +1,17 @@
+<h1>Import subscribers</h1>
+<p>
+  Add a comma separated list of recipients. Valid recipients are:<br /><br />
+  <strong>name@example.com</strong>, <strong>&lt;name@example.com&gt;</strong>, <strong>Name Surname &lt;name@example.com&gt;</strong>
+</p>
+<% form_tag :action => 'import' do -%>
+  <div class="form-area">
+    <p class="title">
+      <label for="recipients">Recipients</label>
+      <%= text_area_tag :recipients, params[:recipients], :rows => 10, :style => "", :class => 'textbox'  %>
+    </p>      
+  </div>  
+  <p class="buttons">
+    <%= submit_tag 'Import subscriber', :class => 'button' %>
+    or <%= link_to 'Cancel', :action => 'index' %>
+  </p>
+<% end -%>

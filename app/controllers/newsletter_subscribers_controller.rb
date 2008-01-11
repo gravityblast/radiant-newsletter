@@ -31,19 +31,42 @@ class NewsletterSubscribersController < ApplicationController
   end
 
   def update
-      if @subscriber.update_attributes(params[:subscriber])
-        flash[:notice] = 'Subscriber has been updated correctly.'
-        redirect_to :action => 'index'
-      else
-        flash[:error] = 'Validation errors occurred while processing this form. Please take a moment to review the form and correct any input errors before continuing.'
-        render :action => 'edit'
-      end
+    if @subscriber.update_attributes(params[:subscriber])
+      flash[:notice] = 'Subscriber has been updated correctly.'
+      redirect_to :action => 'index'
+    else
+      flash[:error] = 'Validation errors occurred while processing this form. Please take a moment to review the form and correct any input errors before continuing.'
+      render :action => 'edit'
+    end                                                  
   end
 
   def destroy
     @subscriber.destroy
     flash[:notice] = 'Subscriber has been deleted correctly.'
     redirect_to :action => 'index', :newsletter_id => @newsletter
+  end
+
+  def import    
+    if request.post?
+      @bad_recipients, @imported_count = [], 0
+      recipients = params[:recipients].to_s.split(/[,\n]/)
+      recipients.each do |recipient|        
+        recipient.strip!
+        next if recipient.blank?
+        name, email = nil, recipient
+        if recipient =~ /^\s*([^<]+)?\s*<\s*([^>]+)\s*>\s*$/
+          name, email = $1.to_s.strip, $2.to_s.strip
+        end
+        subscriber = NewsletterSubscriber.new(:name => name, :email => email, :newsletter => @newsletter)
+        if subscriber.save
+          subscriber.activate # because activated_at is protected
+          @imported_count += 1
+        else
+          @bad_recipients << {:email => recipient, :error => subscriber.errors.full_messages.join(',') }
+        end
+      end
+      render :action => 'imported'
+    end        
   end
 
   private        

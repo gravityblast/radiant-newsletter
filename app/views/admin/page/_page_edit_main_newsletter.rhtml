@@ -1,20 +1,28 @@
-<div class="form-area">
-<% if !@page.new_record? -%>
-  <% if @page.class_name == 'NewsletterPage' -%>
-    <h2>Newsletter:</h2>
-    <ul>
-      <li><%= link_to 'Manage subscribers', :controller => '/newsletter_subscribers', :newsletter_id => @page.id %></li>
-      <li><strong>Subscribers</strong>: <%= @page.subscribers.count %></li>
-      <li><strong>Active subscribers</strong>: <%= @page.active_subscribers.count %></li>
-    </ul>
-  <% elsif (newsletter = @page.parent) && newsletter.class_name == 'NewsletterPage' %>
-    <h2>Newsletter:</h2>
-    <ul>        
-      <li><strong>Mail queue</strong>: <%= NewsletterEmail.count(:conditions => ["page_id = ?", @page.id]) %></li>      
-    </ul>
-    <% form_tag({:controller => '/newsletters', :action => 'new', :page_id => @page.id}) do %>
-      <%= submit_tag 'Send as newsletter...' %> Remember to save the page before sending!
-    <% end %>      
-  <% end -%>
-<% end -%>
+<% if @page.class_name == 'NewsletterPage' -%>
+<div>
+  <p>This is a <strong>NewsletterPage</strong>. It means that each one of its children could be sent as email. Just add a new children, save it and send it.</p>
+  <p>
+    <%= link_to 'Manage subscribers', :controller => '/newsletter_subscribers', :newsletter_id => @page.id %>    
+  </p>
 </div>
+<% elsif @page.parent.class_name == 'NewsletterPage' %>
+<div>
+  <p>This page is child of a <strong>NewsletterPage</strong>. It means that it could be sent as email after saving.</p>
+  <% unless @page.new_record? %>    
+      <% form_tag({:controller => '/newsletters', :action => 'new', :page_id => @page.id}) do %>
+        <p>
+        <% if @page.sent_as_newsletter_email_at.nil? -%>
+          This email has not been sent yet.
+        <% else -%>
+            Sent at <%= @page.sent_as_newsletter_email_at.strftime("%I:%M <small>%p</small> on %B %d, %Y") %>.
+            Email queue: <strong><%= NewsletterEmail.count(:conditions => ["page_id = ?", @page.id]) %></strong>         
+        <% end -%>        
+        </p>
+        <p>
+          <%= submit_tag "Send as newsletter#{@page.sent_as_newsletter_email_at.nil? ? '' : ' again'}" %>
+          <%= submit_tag "Send test email", :name =>'test_email' %>
+        </p>
+      <% end %>    
+  <% end -%>
+</div>
+<% end -%>

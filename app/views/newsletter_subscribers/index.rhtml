@@ -1,4 +1,7 @@
 <h1><%= @newsletter.title %></h1>
+<div>
+  <%= link_to 'Import subscribers', :controller => '/newsletter_subscribers', :action => 'import', :newsletter_id => @newsletter.id %>
+</div><br /><br />
 <table width="100%">
   <tr>
     <th><%= newsletter_subscriber_list_link_to 'Name', :name %></th>

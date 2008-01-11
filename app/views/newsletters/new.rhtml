@@ -2,7 +2,15 @@
 <p>This newsletter will be delivered to <strong><%= @newsletter.recipients.size %></strong> addresses. Do you want to send it now?</p>
 <p> 
   <% form_tag :action => "create" do %>
-    <%= submit_tag "Yes, send now" %> or <%= link_to 'No, I will send it later', :controller => '/admin/page', :action => 'edit', :id => @page %>
+    <% if params[:test_email] -%>
+      <p>
+        Send this test email to: <%= text_field_tag :address, params[:address] || 'An email address' %>
+      </p>
+      <%= submit_tag "Yes, send test email now", :name => 'test_email' %> or
+    <% else -%>
+      <%= submit_tag "Yes, send now" %> or
+    <% end -%>
+    <%= link_to 'No, I will send it later', :controller => '/admin/page', :action => 'edit', :id => @page %>
   <% end %>
 </p> 
 <h2>Subject: "[<%= @newsletter.title %>] <%= @page.title %>"</h2>
