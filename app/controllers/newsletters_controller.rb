@@ -9,6 +9,7 @@ class NewslettersController < ApplicationController
     if request.post?
       if params[:test_email]
         if params[:address] =~ /^$|^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+          flash[:notice] = "Test email has been sent correctly"
           send_test_email(@newsletter, @page, params[:address])
         else
           flash[:error] = "You must specify an email address"
@@ -16,8 +17,8 @@ class NewslettersController < ApplicationController
         end
       else
         send_emails(@newsletter, @page)
-      end
-      flash[:notice] = "Newsletter has been sent correctly"
+        flash[:notice] = "Email has been sent correctly"
+      end      
       redirect_to(:controller => '/admin/page', :action => 'edit', :id => @page)
     else
       redirect_to(:action => "new", :page_id => @page.id)

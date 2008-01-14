@@ -1,6 +1,7 @@
 <h1><%= @newsletter.title %></h1>
 <div>
-  <%= link_to 'Import subscribers', :controller => '/newsletter_subscribers', :action => 'import', :newsletter_id => @newsletter.id %>
+  <%= link_to 'Edit page', page_edit_url(:id => @newsletter.id) %> |
+  <%= link_to 'Import subscribers', :controller => '/newsletter_subscribers', :action => 'import',  :newsletter_id => @newsletter.id %>
 </div><br /><br />
 <table width="100%">
   <tr>

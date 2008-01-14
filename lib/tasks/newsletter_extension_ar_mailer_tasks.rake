@@ -5,8 +5,9 @@ namespace :radiant do
         
         desc "Sends mails with ar_mailer"
         task :send => :environment do
-          ActionMailer::Base.logger = ActionController::Base.logger          
-          m = ActionMailer::ARSendmail.new(:TableName => 'NewsletterEmail', :BatchSize => 20, :Once => true, :Verbose => true)
+          ActionMailer::Base.logger = NewsletterLog #ActionController::Base.logger          
+          m = ActionMailer::ARSendmail.new(:TableName => 'NewsletterEmail', :BatchSize => 20, :Once => true, :Verbose => true, :MaxAge => 0)
+          m.verbose = true
           m.run
         end
         
