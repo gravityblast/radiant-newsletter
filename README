@@ -12,12 +12,30 @@ More info can be found at the following url:
   
 
 == Installation
-                                                             
-  svn co http://dev.gravityblast.com/svn/projects/radiant/extensions/newsletter/
+
+	Newsletter extension requires the Shards extension, an official extension from the Radiant team:
+	
+		svn export http://dev.radiantcms.org/svn/radiant/trunk/extensions/shards/ ./vendor/extensions/shards
   
-  rake RAILS_ENV="production" radiant:extensions:newsletter:install
+	Make sure that Shards is loaded before this and other extensions requiring it by
+	adding this line inside the Radiant::Initializer.run do |config| section of
+	environment.rb:
+
+		config.extensions = [ :shards, :all ]
+
+	Then you can proceed with installation:
+                                                           
+  	svn export http://dev.gravityblast.com/svn/projects/radiant/extensions/newsletter/ ./vendor/extensions/newsletter
   
-Add ActionMailer configurations in your environment.rb and restart the server.  
+  	rake RAILS_ENV="production" radiant:extensions:newsletter:install
+  
+Add ActionMailer configurations in your environment.rb and restart the server.
+
+	config.action_mailer.server_settings = {
+	  :address => "address_of_smtp_server",
+	  :port => 25,
+	  :domain => "domain_of_smtp_server"
+	}
 
 == Usage
 
@@ -29,3 +47,7 @@ This task will add a new page called Newsletter.Add a child to this page.
 This new page will be the email to send. After the first save, you will see
 the "Send as newsletter" button. Click and send your newsletter.
 
+== Contributors
+
+  Casper Fabricius (http://casperfabricius.com)
+  
