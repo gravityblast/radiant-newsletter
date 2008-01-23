@@ -6,7 +6,7 @@
     <%= link_to 'Logs', :controller => '/newsletter_logs' %>
   </p>
 </div>
-<% elsif (@newsletter = @page.parent).class_name == 'NewsletterPage' %>
+<% elsif (@newsletter = @page.parent) && @newsletter.class_name == 'NewsletterPage' %>
 <div>
   <p>This page is child of '<%= link_to @newsletter.title, page_edit_url(@newsletter.id) %>' that is a <strong>NewsletterPage</strong>. It means that it could be sent as email after saving.</p>
   <% unless @page.new_record? %>    

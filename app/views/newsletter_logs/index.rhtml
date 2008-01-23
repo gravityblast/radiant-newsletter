@@ -7,7 +7,7 @@
   </tr>
   <% @logs.each do |log| -%>
     <tr>      
-      <td><%= log.created_at.strftime("%I:%M <small>%p</small> on %B %d, %Y") %></td>
+      <td><%= log.created_at.strftime("%I:%M <small>%p</small> on %B %d, %Y") if log.created_at %></td>
       <td><%= log.message_type %></td>
       <td><%=h log.message %></td>
     </tr>
