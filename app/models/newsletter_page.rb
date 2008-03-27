@@ -94,7 +94,7 @@ class NewsletterPage < Page
   def cache?
     false    
   end
-  
+
   tag 'newsletter' do |tag|
     tag.expand
   end
@@ -137,6 +137,7 @@ class NewsletterPage < Page
   tag 'newsletter:subscriber:unsubscription_code' do |tag|
     tag.locals.newsletter_subscriber.unsubscription_code if tag.locals.newsletter_subscriber
   end
+
 
 private
   

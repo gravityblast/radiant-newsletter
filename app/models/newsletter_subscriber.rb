@@ -51,7 +51,11 @@ class NewsletterSubscriber < ActiveRecord::Base
   def unsubscribe
     update_attribute(:unsubscribed_at, Time.now)
   end  
-    
+  
+  def address
+    "#{self.name} <#{self.email}>".gsub(/\s+/, ' ').strip
+  end
+  
 private
 
   def generate_activation_code

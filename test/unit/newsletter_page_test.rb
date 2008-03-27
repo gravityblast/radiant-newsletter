@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class NewsletterPageTest < Test::Unit::TestCase
-  fixtures :newsletter_subscribers, :pages, :page_parts
+  fixtures :newsletter_subscribers, :pages, :page_parts, :newsletter_traces
   
   def test_should_destroy_newsletter_subscriber
     assert_difference NewsletterSubscriber, :count, -4 do

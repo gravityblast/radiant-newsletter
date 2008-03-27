@@ -10,7 +10,7 @@ class NewslettersController < ApplicationController
       if params[:test_email]
         if params[:address] =~ /^$|^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
           flash[:notice] = "Test email has been sent correctly"
-          send_test_email(@newsletter, @page, params[:address])
+          send_test_email(@newsletter, @page, (NewsletterSubscriber.find_by_email(params[:address]) || NewsletterSubscriber.new(:email => params[:address])))
         else
           flash[:error] = "You must specify an email address"
           render :action => 'new' and return
@@ -40,29 +40,29 @@ private
   end
   
   def send_emails(newsletter, page)
-    info = email_info(newsletter, page)
-    newsletter.recipients.each do |address|      
-      email = NewsletterMailer.create_newsletter(info[:subject], info[:html_body], address, info[:from])
+    newsletter.active_subscribers.each do |subscriber|      
+      info = email_info(newsletter, page, subscriber)
+      email = NewsletterMailer.create_newsletter(info[:subject], info[:html_body], subscriber.address, info[:from])
       NewsletterEmail.create({
         :page_id        => page.id,
         :mail           => email.encoded, 
-        :to             => address,
+        :to             => subscriber.address,
         :from           => info[:from]
       })
     end
     page.update_attribute(:sent_as_newsletter_email_at, Time.now)
   end     
   
-  def send_test_email(newsletter, page, address)
-    info = email_info(newsletter, page)
-    email = NewsletterMailer.create_newsletter(info[:subject], info[:html_body], address, info[:from])    
+  def send_test_email(newsletter, page, subscriber)
+    info = email_info(newsletter, page, subscriber)
+    email = NewsletterMailer.create_newsletter(info[:subject], info[:html_body], subscriber.address, info[:from])    
     NewsletterMailer.deliver(email)
   end
     
-  def email_info(newsletter, page)
+  def email_info(newsletter, page, subscriber)
     {
       :subject => "[#{newsletter.config["subject_prefix"]}] #{page.title}",
-      :html_body => page.render,
+      :html_body => page.respond_to?(:render_with_subscriber) ? page.render_with_subscriber(subscriber) : page.render,
       :from => newsletter.config["from"]
     }
   end

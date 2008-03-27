@@ -126,6 +126,10 @@ class NewsletterSubscriberTest < Test::Unit::TestCase
      end
    end
    
+   def test_address
+     assert_equal "Tom <tom@example.com>", newsletter_subscribers(:tom).address
+   end
+   
 private
 
   def create_newsletter_subscriber(options = {})

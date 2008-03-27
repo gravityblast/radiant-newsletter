@@ -11,11 +11,14 @@ class NewsletterExtension < Radiant::Extension
     map.connect 'admin/newsletters/:newsletter_id/subscribers/:action/:id',   :controller => 'newsletter_subscribers'
     map.connect 'admin/newsletters/:newsletter_id/subscribers/:action/:id',   :controller => 'newsletter_subscribers'
     map.connect 'admin/newsletters/:page_id/:action',                         :controller => 'newsletters'    
+    map.connect 'newsletters/:id/track/:subscriber_id/open',                  :controller => 'newsletter_traces', :action => 'open'    
+    map.connect 'newsletters/:id/track/:subscriber_id/click',                 :controller => 'newsletter_traces', :action => 'click'
   end
   
   def activate
-    NewsletterPage
     Page.class_eval{ has_many :emails, :class_name => 'NewsletterEmail', :dependent => :delete_all }
+    NewsletterPage
+    NewsletterEmailPage
     admin.page.edit.add :main, "page_edit_main_newsletter", :after => 'edit_header'
   end
   

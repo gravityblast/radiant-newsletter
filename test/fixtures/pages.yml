@@ -32,6 +32,7 @@ first_email_for_newsletter:
   status_id: 100
   parent_id: 2
   published_at: <%= 1.day.ago.to_s :db %>
+  class_name: NewsletterEmailPage
 second_email_for_newsletter:
   id: 5
   title: Second email for Newsletter

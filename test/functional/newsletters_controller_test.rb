@@ -64,6 +64,13 @@ class NewslettersControllerTest < Test::Unit::TestCase
       assert_equal 0, ActionMailer::Base.deliveries.size
     end    
   end
+
+  def test_create_should_send_emails_with_subscriber_if_page_is_a_newsletter_email_page
+    post :create, :page_id => pages(:first_email_for_newsletter).id
+    body = NewsletterEmail.find(:first).mail
+    assert_match(%r{newsletters\/4\/track\/1\/click}, body) # Link
+    assert_match(%r{newsletters\/4\/track\/1\/open}, body) # Web beacon    
+  end
   
   def test_should_send_test_email
     assert_difference NewsletterEmail, :count, 0 do

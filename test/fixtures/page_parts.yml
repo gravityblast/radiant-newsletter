@@ -95,9 +95,11 @@ newsletter_config:
   content: |
     from: hello@example.com
     subject_prefix: My newsletter
+    base_url: http://localhost:3000
   page_id: 2
 first_email_for_newsletter_body:
   id: 13
   name: body
-  content: Hello from the first newsletter
+  content:  |
+    Hello from the first newsletter. Here is a link: <r:newsletter:tracking:link url="http://google.com">Google</r:newsletter:tracking:link>. Here is the bug: <r:newsletter:tracking:bug />.
   page_id: 4
