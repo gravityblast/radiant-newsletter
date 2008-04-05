@@ -28,7 +28,7 @@
 </table>
 
 <div style="text-align: center; margin-top: 10px">
-  <%= pagination_links @subscribers_pages, :params => @list_options %>
+  <%= will_paginate @subscribers, :params => @list_options %>
 </div>
 
 <%= link_to 'New subscriber', :action => 'new' %>

@@ -8,7 +8,7 @@ class NewsletterSubscribersController < ApplicationController
     @list_options[:by]    = params[:by] if params[:by] && NewsletterSubscriber.columns.find{|column| column.name == params[:by]}
     @list_options[:order] = params[:order].to_s.downcase if ['desc', 'asc'].include?(params[:order].to_s.downcase)
     @list_options[:pp]    = params[:pp].to_i if params[:pp].to_i > 1
-    @subscribers_pages, @subscribers = paginate(:newsletter_subscriber, :conditions => ["newsletter_id = ?", @newsletter.id], :per_page => @list_options[:pp], :order => "#{@list_options[:by]} #{@list_options[:order]}")
+    @subscribers          = NewsletterSubscriber.paginate(:page => params[:page], :per_page => '10', :conditions => ["newsletter_id = ?", @newsletter.id], :per_page => @list_options[:pp], :order => "#{@list_options[:by]} #{@list_options[:order]}")
   end
 
   def new

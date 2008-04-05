@@ -2,7 +2,7 @@
 # require_dependency 'application'
 
 class NewsletterExtension < Radiant::Extension
-  version "0.1.4"
+  version "0.1.5"
   description "Adds a newsletter system to RadiantCMS"
   url "http://gravityblast.com/projects/radiant-newsletter-extension/"
   
